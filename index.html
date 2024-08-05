@@ -8,23 +8,21 @@
 </head>
 <body>
     <div class="container">
-        <p>You died.</p>
+        <p id="title">You died.</p>
         <img id="homescreen" src="" alt=""/>
         <a href="#" id="start-button" onclick="startGame()">Start</a>
 
         <div id="game-container">
-            <div class="story-text"></div>
-            <div class="image-container">
-                <!--  
-                <img id="story-image" src="smaller_images/placeholder.png" alt="Story Image"/>
-                -->
+            <div id="story-text"></div>
+            <div class="image-container"> 
+                <img id="story-image" src="images/placeholder.jpg" alt=""/>
             </div>
-            <div class="choices"></div>
+            <div id="choices"></div>
         </div>
 
     </div>
 
-    <script src="js/game.js"></script>
+    <script src="game.js"></script>
     
     <!--
     For adding analytics? 
