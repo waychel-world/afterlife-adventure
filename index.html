@@ -3,9 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="style.css"/>
     <title>Afterlife Adventure</title>
 </head>
 <body>
+    <div class="container">
+        <p>You died.</p>
+        <img id="homescreen" src="" alt=""/>
+        <a href="#" id="start-button" onclick="startGame()">Start</a>
+
+        <div id="game-container">
+            <div class="story-text"></div>
+            <div class="image-container">
+                <!--  
+                <img id="story-image" src="smaller_images/placeholder.png" alt="Story Image"/>
+                -->
+            </div>
+            <div class="choices"></div>
+        </div>
+
+    </div>
+
+    <script src="js/game.js"></script>
     
+    <!--
+    For adding analytics? 
+    <script async defer src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
+    <noscript><img src="https://queue.simpleanalyticscdn.com/noscript.gif" alt="" referrerpolicy="no-referrer-when-downgrade" /></noscript>
+    -->
+
 </body>
 </html>
