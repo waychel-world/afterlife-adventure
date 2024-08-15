@@ -93,8 +93,6 @@ function renderState(state) {
     img.onload = () => {
         storyImage.src = img.src;
         storyText.textContent = gameData[state].text;
-        storyText.setAttribute('style', 'white-space: pre;'); //Allow adding line breaks to text
-        storyText.setAttribute('style', 'overflow-wrap: break-word;'); //Wrap text 
 
         choicesContainer.innerHTML = '';   
         formContainer.innerHTML = '';   

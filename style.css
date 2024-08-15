@@ -55,13 +55,14 @@ body, html {
 }
 
 #story-image {
-    height: 100px;
-    max-width: 100px;
+    height: 10px;
+    max-width: 10px;
     background-color: white;
 }
 
-.story-text {
-    font-size: 20px;
+#story-text {
+    white-space: pre-wrap;
+    line-height: 150%;
     margin-bottom: 1rem; /* Space above the choices container */
-/* padding-bottom: 5rem; */
+    padding-bottom: 5rem;   
 }
