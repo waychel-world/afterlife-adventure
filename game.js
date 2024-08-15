@@ -39,11 +39,11 @@ const gameData = {
     },
 
     "4": {
-        "text": "They start to mumble louder and faster, words spilling out of them almost too quickly for you to catch (after all you are a moth, with a little moth brain): the events that followed your passing, the things they never got to say to you or do with you, how they missed you. Then their speech starts to slow, weighed down with doubt; it becomes a question, a plea." + "\r\n" + "\r\n" + "They hold up four fingers–each one represents one option for what to do with your body." + "\r\n" + "\r\n" + "“yourName, if it’s really you… give me a sign. What would you want me to do?”",
+        "text": "They start to mumble faster, words spilling out of them almost too quickly for you to catch (after all you are a moth, with a little moth brain): the events that followed your passing, the things they never got to say to you or do with you, how they missed you. Then their speech starts to slow, weighed down with doubt; it becomes a question, a plea." + "\r\n" + "\r\n" + "They hold up four fingers–each one represents one option for what to do with your body." + "\r\n" + "\r\n" + "“yourName, if it’s really you… give me a sign. What would you want me to do?”",
         "image": "images/placeholder.jpg",
         "choices": {
-            "Bury you in a biodegradable shroud under a tree.": [5],
-            "Cremate you and have your friends or family keep the urn in their home.": [5],
+            "Bury you under a tree.": [5],
+            "Cremate you and have your friends or family keep the urn.": [5],
             "Donate your body to a lab that dissects people to discover where sentience is located in the human body." : [5],
             "Encase your body in a very hard material and launch it into outer space.": [5]
         }
