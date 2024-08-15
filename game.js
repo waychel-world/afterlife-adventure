@@ -1,4 +1,10 @@
-var yourName = ""
+const user = {
+    nameInput: "yourName",
+
+    set changeName(newName) {
+        this.nameInput = newName;
+    }
+}
 
 const endings = {
 
@@ -6,10 +12,11 @@ const endings = {
 
 const gameData = {
     "1": {
-        "text": "You awake to un-life, a strange inverted non-existence. You hear no sounds, just a resounding silence. You have no eyes, and there is no light, but you see the void stretch ahead of you endlessly." + "\r\n" + "\r\n" + "A thought presents itself: “who was I?”",
+        "input": "name", 
+        "text": "You awake to un-life, a strange inverted non-existence. You hear no sounds, just a resounding silence. You have no eyes, and there is no light, but you see the void stretch ahead of you endlessly." + "\r\n" + "\r\n" + "A thought presents itself: “Who was I?”",
         "image": "images/placeholder.jpg",
-        "form": {
-            "“Ahhh, I remember. Yes, that was my name.”": [2, yourName]
+        "submit": {
+            "“Ahhh, I remember. Yes, that was my name.”": [2]
         }
     },
 
@@ -63,7 +70,6 @@ const gameData = {
 let currentState = 1;
 
 function startGame() {
-    console.log('startGame Function called.');
     document.getElementById('homescreen').style.display = 'none';
     document.getElementById('title').style.display = 'none';
     document.querySelector('#start-button').style.display = 'none';
@@ -93,22 +99,18 @@ function renderState(state) {
         choicesContainer.innerHTML = '';   
         formContainer.innerHTML = '';   
         
-        if (gameData[state].choices === undefined) {
-            for (const [submit, userInput] of Object.entries(gameData[state].form)) {
-                const input = document.createElement('input');
-                input.typeName = 'text';
-                input.maxLength = '25';
-                input.id = 'user-input';
-                const button = document.createElement('button');
-                button.textContent = submit;
-                button.className = 'submit-button';
-                let nextState = userInput[0]; //it's basically working I just need it to read what's written behind the state and rename the variable to that 
-                button.onclick = () => getInputChangeState(nextState, userInput); //
-                formContainer.appendChild(input);
-                formContainer.appendChild(button);
-            };
-            // remove one -- test, both not needed prob
-            //copy choices below and adapt for form 
+        if (gameData[state].input === "name") {
+            for (const [submit, ending] of Object.entries(gameData[state].submit)) {
+            const input = document.createElement('input');
+            input.id = 'user-name';
+            const button = document.createElement('button');
+            button.textContent = submit;
+            button.className = 'submit-button';
+            let nextState = ending[0]; 
+            button.onclick = () => changeNameState(nextState, ending[0]); 
+            formContainer.appendChild(input);
+            formContainer.appendChild(button);
+             }
           } else {
             for (const [choice, ending] of Object.entries(gameData[state].choices)) {
                 const button = document.createElement('button');
@@ -122,12 +124,12 @@ function renderState(state) {
     };
 };
 
+function changeNameState(newState, selectedEnding) {
 
-function getInputChangeState(newState, userInput) {
+    var userName = document.getElementById('user-name').value; 
+    user.changeName = userName;
+    gameData[newState].text = gameData[newState].text.replaceAll("yourName", user.nameInput)
 
-    var userInput = document.getElementById('user-input').value; 
-    console.log(userInput)
-    
     currentState = newState;
 
     if (currentState === 0) {
@@ -135,14 +137,17 @@ function getInputChangeState(newState, userInput) {
     } else {
         renderState(currentState);
     }
-};
+}
 
 function changeState(newState, selectedEnding) {
 
-    /*selectedEnding.forEach(ending => {
+    /*
+    selectedEnding.forEach(ending => {
         endings[ending]++;
     });
-    trace "ending" "endings" and populate */
+    trace "ending" "endings" and populate 
+    */
+    gameData[newState].text = gameData[newState].text.replaceAll("yourName", user.nameInput)
 
     currentState = newState;
 
