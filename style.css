@@ -62,7 +62,7 @@ body, html {
 
 #story-text {
     white-space: pre-wrap;
-    line-height: 150%;
+    line-height: 140%;
     margin-bottom: 1rem; /* Space above the choices container */
     padding-bottom: 5rem;   
 }

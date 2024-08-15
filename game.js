@@ -25,7 +25,7 @@ const gameData = {
         "image": "images/placeholder.jpg",
         "choices": {
             "Turn back to follow the crying sound.": [3],
-            "Step into the glow, no looking back.": [5]
+            "Step into the glow, no looking back.": [6]
         }
     },
 
@@ -45,26 +45,58 @@ const gameData = {
             "Bury you in a biodegradable shroud under a tree.": [5],
             "Cremate you and have your friends or family keep the urn in their home.": [5],
             "Donate your body to a lab that dissects people to discover where sentience is located in the human body." : [5],
-            "Encase your body in a very hard material and launch it into outer space.": [5],
+            "Encase your body in a very hard material and launch it into outer space.": [5]
         }
     },
 
     "5": {
-        "text": "",
-        "image": "",
+        "text": "You land on the finger that represents your choice. They nod eagerly, promising to respect your decision." + "\r\n" + "\r\n" + "All night, the two of you keep vigil. Sometimes they speak, sometimes they weep, but most of the time they gaze silently at the little moth perched on their finger, drinking the last drops of goodbye. Come morning, the moth is dead, and you depart once more to un-life.",
+        "image": "images/placeholder.jpg",
         "choices": {
-
+            "Onwards…": []
         }
     },
 
     "6": {
+        "text": "You’ve been walking for what feels like an age. At some point, without you noticing, your surroundings had de-inverted. You remember dappled light, a cobblestone path, and a bridge over fast water. Now you find yourself coming to a halt in a beautiful pavilion. It’s empty, except for a table and two chairs.",
+        "image": "images/placeholder.jpg",
+        "choices": {
+            "Sit down.": [7]
+        }
+    },
+
+    "7": {
+        "text": "Tired and slightly bored, you cast your eyes around the table. There is a large pot with a ladle, an empty bowl, and a piece of paper with a leisurely scrawl:" + "\r\n" + "\r\n" + "“Out for a break. Please help yourself.”" + "\r\n" + "\r\n" + "You lift the lid on the pot. It’s alphabet soup. The little pasta letters floating on the surface of the soup spell out the words “EAT SPAGHETTI TO FORGETTI YOUR REGRETTI”.",
+        "image": "images/placeholder.jpg",
+        "choices": {
+            "Help yourself to a bowl. A big, full bowl.": [],
+            "No thanks! Wander off into the forest instead.": [],
+        }
+    },
+
+    "": {
         "text": "",
-        "image": "",
+        "image": "images/placeholder.jpg",
         "choices": {
 
         }
     },
 
+    "": {
+        "text": "",
+        "image": "images/placeholder.jpg",
+        "choices": {
+
+        }
+    },
+
+    "": {
+        "text": "",
+        "image": "images/placeholder.jpg",
+        "choices": {
+
+        }
+    },
 };
 
 let currentState = 1;
