@@ -1,26 +1,15 @@
+var yourName = ""
+
 const endings = {
 
 };
-
-function getUserName() {
-    var yourName = document.getElementById('yourName').value;
-    var result = document.getElementById('result');
-    
-    if (nameField.length < 3) {
-        result.textContent = 'Username must contain at least 3 characters';
-        //alert('Username must contain at least 3 characters');
-    } else {
-        result.textContent = 'Your username is: ' + nameField;
-        //alert(nameField);
-    }
-    }
 
 const gameData = {
     "1": {
         "text": "You awake to un-life, a strange inverted non-existence. You hear no sounds, just a resounding silence. You have no eyes, and there is no light, but you see the void stretch ahead of you endlessly." + "\r\n" + "\r\n" + "A thought presents itself: “who was I?”",
         "image": "images/placeholder.jpg",
-        "choices": {
-            "“So that was my name.”": [2],
+        "form": {
+            "“Ahhh, I remember. Yes, that was my name.”": [2, yourName]
         }
     },
 
@@ -46,8 +35,8 @@ const gameData = {
         "text": "They start to mumble louder and faster, words spilling out of them almost too quickly for you to catch (after all you are a moth, with a little moth brain): the events that followed your passing, the things they never got to say to you or do with you, how they missed you. Then their speech starts to slow, weighed down with doubt; it becomes a question, a plea." + "\r\n" + "\r\n" + "They hold up four fingers–each one represents one option for what to do with your body." + "\r\n" + "\r\n" + "“yourName, if it’s really you… give me a sign. What would you want me to do?”",
         "image": "images/placeholder.jpg",
         "choices": {
-            "Bury you in a biodegradable shroud under the roots of a tree that you used to visit with your dearest friends.": [5],
-            "Cremate you and keep the urn in your family home, beside other family members who passed before you.": [5],
+            "Bury you in a biodegradable shroud under a tree.": [5],
+            "Cremate you and have your friends or family keep the urn in their home.": [5],
             "Donate your body to a lab that dissects people to discover where sentience is located in the human body." : [5],
             "Encase your body in a very hard material and launch it into outer space.": [5],
         }
@@ -90,7 +79,7 @@ function renderState(state) {
     const storyText = document.getElementById('story-text');
     const storyImage = document.getElementById('story-image');
     const choicesContainer = document.getElementById('choices');
-    //const formContainer = 
+    const formContainer = document.getElementById('form');
 
     const img = new Image();
     img.src = gameData[state].image;
@@ -99,22 +88,62 @@ function renderState(state) {
         storyImage.src = img.src;
         storyText.textContent = gameData[state].text;
         storyText.setAttribute('style', 'white-space: pre;'); //Allow adding line breaks to text
-        storyText.setAttribute('style', 'overflow-wrap: break-word;'); //Wrap text
-        choicesContainer.innerHTML = '';   
+        storyText.setAttribute('style', 'overflow-wrap: break-word;'); //Wrap text 
 
-        for (const [choice, info] of Object.entries(gameData[state].choices)) {
-            const button = document.createElement('button');
-            button.textContent = choice;
-            button.className = 'choice-button';
-            let nextState = info[0];
-            button.onclick = () => changeState(nextState, info[1]); //each time you change state you update the personalities dictionary
-            choicesContainer.appendChild(button);
-        };
+        choicesContainer.innerHTML = '';   
+        formContainer.innerHTML = '';   
+        
+        if (gameData[state].choices === undefined) {
+            for (const [submit, userInput] of Object.entries(gameData[state].form)) {
+                const input = document.createElement('input');
+                input.typeName = 'text';
+                input.maxLength = '25';
+                input.id = 'user-input';
+                const button = document.createElement('button');
+                button.textContent = submit;
+                button.className = 'submit-button';
+                let nextState = userInput[0]; //it's basically working I just need it to read what's written behind the state and rename the variable to that 
+                button.onclick = () => getInputChangeState(nextState, userInput); //
+                formContainer.appendChild(input);
+                formContainer.appendChild(button);
+            };
+            // remove one -- test, both not needed prob
+            //copy choices below and adapt for form 
+          } else {
+            for (const [choice, ending] of Object.entries(gameData[state].choices)) {
+                const button = document.createElement('button');
+                button.textContent = choice;
+                button.className = 'choice-button';
+                let nextState = ending[0];
+                button.onclick = () => changeState(nextState, ending[1]); //each time you change state you update the endings dictionary
+                choicesContainer.appendChild(button);
+            };
+          }
     };
 };
 
 
+function getInputChangeState(newState, userInput) {
+
+    var userInput = document.getElementById('user-input').value; 
+    console.log(userInput)
+    
+    currentState = newState;
+
+    if (currentState === 0) {
+        revealEnding();
+    } else {
+        renderState(currentState);
+    }
+};
+
 function changeState(newState, selectedEnding) {
+
+    /*selectedEnding.forEach(ending => {
+        endings[ending]++;
+    });
+    trace "ending" "endings" and populate */
+
     currentState = newState;
 
     if (currentState === 0) {
