@@ -7,9 +7,9 @@ const user = {
 }
 
 const endings = {
-    "Cave": 0, //Cave of All Whys 
-    "Psychopomp": 0, //Become a psychopomp (replace one of the characters you meet)
-    "Fish": 0, //Reincarnate into an octopus 
+    "Cave": 0, 
+    "Psychopomp": 0, 
+    "Fish": 0,   
     "Moss": 0, //Reincarnate into moss
     "Ghost": 0, //Return to the land of the living, but as a ghost 
     "Oblivion": 0, //Have your consciousness scattered across the cosmos
@@ -21,35 +21,31 @@ const endings = {
 
 const endingText = {
     "Cave": {
-        "text": "Cave 1",
+        "text": "You are led to the Cave of All Whys, where you come to know the Whys and Hows of all things, from all possible perspectives. You spend your days in discussion with the other beings in the cave (animal, plant, mineral, abstract, and everything in between), making close friends and casual enemies. The discussions are never boring, because the Whys and Hows often change. Also because the cave is comfy, with lots of sunlight, drinks, and quality snacks. But if you do ever get tired of omniscience, you may leave the cave at any time, forgetting everything you have learned here so that you may rejoin the cycle of rebirth unburdened." + "\r\n" + "\r\n" + "THE END.",
     }, 
     
     "Psychopomp": {
-        "text": "Psychopomp 1",
+        "text": "You are given the option to become a psychopomp for others, to replace one of the characters you meet in the story. Options include: Soup Lady, Crossroads Pointer, Host of the Picnic of Judgement, or a secret fourth option that you can suggest yourself." + "\r\n" + "\r\n" + "THE END.",
     }, 
 
     "Fish": {
-        "text": "Fish 1",
+        "text": "You reincarnate into a fish, living on a colourful, convivial reef community. Dangers abound, but so do curious joys. Every dawn and dusk, your neighbourhood comes alive with burble, chirps, and squawks as others just like you spend their lives looking for friends, mates, and food." + "\r\n" + "\r\n" + "THE END.",
     }, 
 
     "Moss": {
-        "text": "Moss 1",
+        "text": "You reincarnate into moss. Your body and therefore awareness is both one and many, continuous with the grass, the trees, the stars, the sun, in an eternal many-bodied hug. When the wind blows you kiss your selves. When the rain falls you (all) drink together." + "\r\n" + "\r\n" + "THE END.",
     }, 
 
     "Ghost": {
-        "text": "Ghost 1",
+        "text": "You become a ghost...? (Honestly not sure about this one.)" + "\r\n" + "\r\n" + "THE END.",
     }, 
 
     "Oblivion": {
-        "text": "Oblivion 1",
-    }, 
-
-    "Shopkeeper": {
-        "text": "Shopkeeper 1",
+        "text": "Your consciousness de-composes into its smallest building blocks, which devolve from atoms to hadrons to quarks, and disperse across the universe. With the dissipation of your sentience, you cease to exist in any meaningful way. The quarks vibrate and collide randomly on the course to the end of time. Perhaps one of these collisions leads to another, and another, into a somewhat familiar arrangement, and a dog with uncommonly human eyes is born. After all, nothing here is ever truly lost or wasted." + "\r\n" + "\r\n" + "THE END.",
     }, 
 
     "Ancestor": {
-        "text": "Ancestor 1",
+        "text": "You join the ancestors and watch from above. You don’t have godly powers or anything, but sometimes you smile, and good things happen to the people you smile upon. You can occasionally smite people in small ways, but you have to apply through the Bureau of Smiting (this is to prevent abuse of smiting privileges)." + "\r\n" + "\r\n" + "THE END.",
     }, 
 };
 
