@@ -19,6 +19,40 @@ const endings = {
     //["Cave", "Psychopomp", "Fish", "Moss", "Ghost", "Oblivion", "Shopkeeper", "Ancestor"]
 };
 
+const endingText = {
+    "Cave": {
+        "text": "Cave 1",
+    }, 
+    
+    "Psychopomp": {
+        "text": "Psychopomp 1",
+    }, 
+
+    "Fish": {
+        "text": "Fish 1",
+    }, 
+
+    "Moss": {
+        "text": "Moss 1",
+    }, 
+
+    "Ghost": {
+        "text": "Ghost 1",
+    }, 
+
+    "Oblivion": {
+        "text": "Oblivion 1",
+    }, 
+
+    "Shopkeeper": {
+        "text": "Shopkeeper 1",
+    }, 
+
+    "Ancestor": {
+        "text": "Ancestor 1",
+    }, 
+};
+
 const gameData = {
     "1": {
         "input": "name", 
@@ -206,23 +240,24 @@ function revealEnding() {
         };
     };
 
-    const storyImage = document.getElementById('story-image');
     const storyText = document.getElementById('story-text');
-    const choicesContainer = document.getElementById('choices');
     const endingImagePath = "images/placeholder.jpg" // for substitutable images `smaller_images/id_cards/${maxVeggie}.png`;
+    const choicesContainer = document.getElementById('choices');
+    const formContainer = document.getElementById('form');
 
     // Preload the image
     const img = new Image();
     img.src = endingImagePath;
+
    //img.className = 'responsive-image'; 
 
     // Once the image is loaded, update the DOM
     img.onload = () => {
-        storyImage.style.display = 'none';
+        formContainer.style.display = 'none';
         choicesContainer.style.display = 'none';
-        
-        storyText.textContent = "The End! (for now;)";
-        storyText.appendChild(img);
+
+        storyText.textContent = endingText[maxEnding].text;
+        //storyText.appendChild(img);
 
     };
 };
