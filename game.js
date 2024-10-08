@@ -14,7 +14,6 @@ const endings = {
     "Ghost": 0,  
     "Oblivion": 0, 
     "Ancestor": 0
-    
     //["Cave", "Psychopomp", "Fish", "Moss", "Ghost", "Oblivion", "Ancestor"]
 };
 
@@ -224,3 +223,6 @@ function displayEnding(maxEnding) {
     storyText.textContent = endingText[maxEnding].text;
     
 };
+
+/*after removing img.onload(), created "flash of unstyled content" warning. 
+It actually displays fine right now, but if the problem arises in the future may want to reinstate page.onload() or something similar.*/
