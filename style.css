@@ -54,12 +54,6 @@ body, html {
     margin-top: 2rem; /* Space above the choices container */
 }
 
-#story-image {
-    height: 10px;
-    max-width: 10px;
-    background-color: white;
-}
-
 #story-text {
     white-space: pre-wrap;
     line-height: 140%;
