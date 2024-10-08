@@ -48,7 +48,7 @@ const endingText = {
     }, 
 };
 
-const gameData = {
+var gameData = {
     "1": {
         "input": "name", 
         "text": "You awake to un-life, a strange inverted non-existence. You hear no sounds, just a resounding silence. You have no eyes, and there is no light, but you see the void stretch ahead of you endlessly." + "\r\n" + "\r\n" + "A thought presents itself: “Who was I?”",
@@ -105,20 +105,6 @@ const gameData = {
         }
     },
 
-    "": {
-        "text": "",
-        "choices": {
-            "Reveal": [,["Cave", "Psychopomp", "Fish", "Moss", "Ghost", "Oblivion", "Shopkeeper", "Ancestor"]],
-        }
-    },
-
-    "": {
-        "text": "",
-        "choices": {
-
-        }
-    },
-
     "0": { //defines gameData[newState] so that function revealEnding can be called within changeState
         "text": "",
         "choices": {
@@ -129,14 +115,14 @@ const gameData = {
 
 let currentState = 1;
 
-function cleanDisplay() {
+function displayGame() {
     document.getElementById('title').style.display = 'none';
     document.querySelector('#start-button').style.display = 'none';
     document.getElementById('game-container').style.display = 'block';
 }
 
 function startGame() {
-    cleanDisplay();
+    displayGame();
     renderState(currentState);
 };
 
@@ -144,63 +130,66 @@ const storyText = document.getElementById('story-text');
 const choicesContainer = document.getElementById('choices');
 const formContainer = document.getElementById('form');
 
-function renderState(state) {
-
+function loadGameContent(state) {
     storyText.textContent = gameData[state].text;
+    choicesContainer.innerHTML = '';
+    formContainer.innerHTML = '';
+};
 
-    choicesContainer.innerHTML = '';   
-    formContainer.innerHTML = '';   
-    
-    if (gameData[state].input === "name") {
-        for (const [submit, info] of Object.entries(gameData[state].submit)) { //info is array of next state and selected ending
+function loadNameInput(state) {
+    for (const [submit, info] of Object.entries(gameData[state].submit)) { //info is array of next state and selected ending
         const input = document.createElement('input');
         input.id = 'user-name';
         const button = document.createElement('button');
         button.textContent = submit;
         button.className = 'submit-button';
-        let nextState = info[0]; 
-        button.onclick = () => changeNameState(nextState, info[1]); 
+        let nextState = info[0];
         formContainer.appendChild(input);
         formContainer.appendChild(button);
-            }
-        } else {
-        for (const [choice, info] of Object.entries(gameData[state].choices)) {
-            const button = document.createElement('button');
-            button.textContent = choice;
-            button.className = 'choice-button';
-            let nextState = info[0];
-            button.onclick = () => changeState(nextState, info[1]); //each time you change state you update the endings dictionary
-            choicesContainer.appendChild(button);
-        };
-        }
+
+        button.onclick = () => changeState(nextState, info[1]); 
+            };
 };
 
-function changeNameState(newState, selectedEndings) {
+function loadChoices(state) {
+    for (const [choice, info] of Object.entries(gameData[state].choices)) {
+        const button = document.createElement('button');
+        button.textContent = choice;
+        button.className = 'choice-button';
+        let nextState = info[0];
+        choicesContainer.appendChild(button);
+
+        button.onclick = () => changeState(nextState, info[1]);
+    };
+};
+
+function renderState(state) {
     
+    loadGameContent(state);
+
+    if (gameData[state].input === "name") {
+        loadNameInput(state);
+        } else {
+        loadChoices(state);
+        };
+};
+
+function updateEnding(selectedEndings) {
     selectedEndings.forEach(ending => {
         endings[ending]++;
     });
-    
+};
+
+//Name function broken
+function updateName(newState) {
     var userName = document.getElementById('user-name').value; 
     user.changeName = userName;
-    gameData[newState].text = gameData[newState].text.replaceAll("yourName", user.nameInput)
-
-    currentState = newState;
-
-    if (currentState === 0) {
-        revealEnding();
-    } else {
-        renderState(currentState);
-    }
-}
+    //gameData[newState].text = gameData[newState].text.replaceAll("yourName", user.nameInput)
+};
 
 function changeState(newState, selectedEndings) {
-
-    selectedEndings.forEach(ending => {
-        endings[ending]++;
-    });
     
-    gameData[newState].text = gameData[newState].text.replaceAll("yourName", user.nameInput)
+    updateEnding(selectedEndings);
 
     currentState = newState;
 
@@ -212,6 +201,7 @@ function changeState(newState, selectedEndings) {
 };
 
 function revealEnding() {
+
     let maxCount = 0;
     let maxEnding = '';
 
@@ -222,10 +212,15 @@ function revealEnding() {
         };
     };
 
+    displayEnding(maxEnding);
+
+};
+
+function displayEnding(maxEnding) {
+
     formContainer.style.display = 'none';
     choicesContainer.style.display = 'none';
 
     storyText.textContent = endingText[maxEnding].text;
-
+    
 };
-
