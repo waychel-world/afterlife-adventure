@@ -6,6 +6,123 @@ const user = {
     }
 }
 
+let currentState = 1;
+
+const storyText = document.getElementById('story-text');
+const choicesContainer = document.getElementById('choices');
+const formContainer = document.getElementById('form');
+
+function displayGame() {
+    document.getElementById('title').style.display = 'none';
+    document.querySelector('#start-button').style.display = 'none';
+    document.getElementById('game-container').style.display = 'block';
+}
+
+function startGame() {
+    displayGame();
+    renderState(currentState);
+};
+
+function loadGameContent(state) {
+    storyText.textContent = gameData[state].text.replaceAll("yourName", user.nameInput) //once user inputs name, this will update replace the yourName placeholder every time the text loads
+    choicesContainer.innerHTML = '';
+    formContainer.innerHTML = '';
+};
+
+function loadNameInput(state) {
+    for (const [submit, info] of Object.entries(gameData[state].submit)) { //info is array of next state and selected ending
+        const input = document.createElement('input');
+        input.id = 'user-name';
+        const button = document.createElement('button');
+        button.textContent = submit;
+        button.className = 'submit-button';
+        let nextState = info[0];
+        formContainer.appendChild(input);
+        formContainer.appendChild(button);
+
+        button.onclick = () => changeState(nextState, info[1]); 
+            };
+};
+
+function loadChoices(state) {
+    for (const [choice, info] of Object.entries(gameData[state].choices)) {
+        const button = document.createElement('button');
+        button.textContent = choice;
+        button.className = 'choice-button';
+        let nextState = info[0];
+        choicesContainer.appendChild(button);
+
+        button.onclick = () => changeState(nextState, info[1]);
+    };
+};
+
+function renderState(state) {
+    
+    loadGameContent(state);
+
+    if (gameData[state].input === "name") {
+        loadNameInput(state);
+        } else {
+        loadChoices(state);
+        };
+};
+
+function updateEnding(selectedEndings) {
+    selectedEndings.forEach(ending => {
+        endings[ending]++;
+    });
+};
+
+function updateName(newState) {
+    var userName = document.getElementById('user-name').value; 
+    user.changeName = userName;
+};
+
+function changeState(newState, selectedEndings) {
+    
+    updateEnding(selectedEndings);
+
+    if (gameData[currentState].input === "name") {
+        updateName(newState);
+    };
+
+    currentState = newState;
+
+    if (currentState === 0) {
+        revealEnding();
+    } else {
+        renderState(currentState);
+    }
+};
+
+function displayEnding(maxEnding) {
+
+    formContainer.style.display = 'none';
+    choicesContainer.style.display = 'none';
+
+    storyText.textContent = endingText[maxEnding].text;
+    
+};
+
+function revealEnding() {
+
+    let maxCount = 0;
+    let maxEnding = '';
+
+    for (const [ending, count] of Object.entries(endings)) {
+        if (count > maxCount) {
+            maxCount = count;
+            maxEnding = ending;
+        };
+    };
+
+    displayEnding(maxEnding);
+
+};
+
+/*after removing img.onload(), created "flash of unstyled content" warning. 
+It actually displays fine right now, but if the problem arises in the future may want to reinstate page.onload() or something similar.*/
+
 const endings = {
     "Cave": 0, 
     "Psychopomp": 0, 
@@ -47,7 +164,7 @@ const endingText = {
     }, 
 };
 
-var gameData = {
+const gameData = {
     "1": {
         "input": "name", 
         "text": "You awake to un-life, a strange inverted non-existence. You hear no sounds, just a resounding silence. You have no eyes, and there is no light, but you see the void stretch ahead of you endlessly." + "\r\n" + "\r\n" + "A thought presents itself: “Who was I?”",
@@ -111,118 +228,3 @@ var gameData = {
         }
     },
 };
-
-let currentState = 1;
-
-function displayGame() {
-    document.getElementById('title').style.display = 'none';
-    document.querySelector('#start-button').style.display = 'none';
-    document.getElementById('game-container').style.display = 'block';
-}
-
-function startGame() {
-    displayGame();
-    renderState(currentState);
-};
-
-const storyText = document.getElementById('story-text');
-const choicesContainer = document.getElementById('choices');
-const formContainer = document.getElementById('form');
-
-function loadGameContent(state) {
-    storyText.textContent = gameData[state].text;
-    choicesContainer.innerHTML = '';
-    formContainer.innerHTML = '';
-};
-
-function loadNameInput(state) {
-    for (const [submit, info] of Object.entries(gameData[state].submit)) { //info is array of next state and selected ending
-        const input = document.createElement('input');
-        input.id = 'user-name';
-        const button = document.createElement('button');
-        button.textContent = submit;
-        button.className = 'submit-button';
-        let nextState = info[0];
-        formContainer.appendChild(input);
-        formContainer.appendChild(button);
-
-        button.onclick = () => changeState(nextState, info[1]); 
-            };
-};
-
-function loadChoices(state) {
-    for (const [choice, info] of Object.entries(gameData[state].choices)) {
-        const button = document.createElement('button');
-        button.textContent = choice;
-        button.className = 'choice-button';
-        let nextState = info[0];
-        choicesContainer.appendChild(button);
-
-        button.onclick = () => changeState(nextState, info[1]);
-    };
-};
-
-function renderState(state) {
-    
-    loadGameContent(state);
-
-    if (gameData[state].input === "name") {
-        loadNameInput(state);
-        } else {
-        loadChoices(state);
-        };
-};
-
-function updateEnding(selectedEndings) {
-    selectedEndings.forEach(ending => {
-        endings[ending]++;
-    });
-};
-
-//Name function broken
-function updateName(newState) {
-    var userName = document.getElementById('user-name').value; 
-    user.changeName = userName;
-    //gameData[newState].text = gameData[newState].text.replaceAll("yourName", user.nameInput)
-};
-
-function changeState(newState, selectedEndings) {
-    
-    updateEnding(selectedEndings);
-
-    currentState = newState;
-
-    if (currentState === 0) {
-        revealEnding();
-    } else {
-        renderState(currentState);
-    }
-};
-
-function revealEnding() {
-
-    let maxCount = 0;
-    let maxEnding = '';
-
-    for (const [ending, count] of Object.entries(endings)) {
-        if (count > maxCount) {
-            maxCount = count;
-            maxEnding = ending;
-        };
-    };
-
-    displayEnding(maxEnding);
-
-};
-
-function displayEnding(maxEnding) {
-
-    formContainer.style.display = 'none';
-    choicesContainer.style.display = 'none';
-
-    storyText.textContent = endingText[maxEnding].text;
-    
-};
-
-/*after removing img.onload(), created "flash of unstyled content" warning. 
-It actually displays fine right now, but if the problem arises in the future may want to reinstate page.onload() or something similar.*/
